@@ -24,14 +24,8 @@ export class AppComponent {
   }
 
   public addPizza(pizzaSize) {
-    const isCheckBoxSelected = (document.getElementById(pizzaSize) as HTMLInputElement).checked;
-    if (isCheckBoxSelected) {
       this.listOfPizzas.push({ size: pizzaSize, pizzaToppings: [] })
-    } else {
-      this.listOfPizzas = this.listOfPizzas.filter(t => t.size !== pizzaSize)
-    }
-    console.log(this.listOfPizzas)
-  }
+    }  
 
   public calculateTotalPrice() {
     let individualPizzaPrice = [];
@@ -45,6 +39,10 @@ export class AppComponent {
     let totalPrice = 0;
      individualPizzaPrice.map(item => totalPrice += item);
      this.price = totalPrice;
+  }
+
+  public calculatePizzaCount(pizzaSize) {
+    return this.listOfPizzas.filter(item => item.size === pizzaSize).length;
   }
 }
 

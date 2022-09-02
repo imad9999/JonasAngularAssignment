@@ -2,20 +2,25 @@
   <tr>
     <th>VegToppings</th>
     <th>
-      <input type="checkbox" id="small" (change)="addPizza('small')">
       Small($5)
+      <button (click)="addPizza('small')">+1</button>
+      {{calculatePizzaCount('small')}}
     </th>
     <th>
-      <input type="checkbox" id="medium" (change)="addPizza('medium')">
       Medium($7)
+      <button (click)="addPizza('medium')">+1</button>
+      {{calculatePizzaCount('medium')}}
     </th>
     <th>
-      <input type="checkbox" id="large" (change)="addPizza('large')">
       Large($8)
+      <button (click)="addPizza('large')">+1</button>
+      {{calculatePizzaCount('large')}}
     </th>
     <th>
-      <input type="checkbox" id="extraLarge" (change)="addPizza('extraLarge')">
-      Extra Large($9)</th>
+      Extra Large($9)
+      <button (click)="addPizza('extraLarge')">+1</button>
+      {{calculatePizzaCount('extraLarge')}}
+    </th>
   </tr>
   <tr>
     <td>Tomatoes($1.00)</td>
