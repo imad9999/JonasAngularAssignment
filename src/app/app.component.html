@@ -1,0 +1,157 @@
+<table>
+  <tr>
+    <th>VegToppings</th>
+    <th>
+      Small($5)
+      <button (click)="addPizza('small')">+1</button>
+      {{calculatePizzaCount('small')}}
+    </th>
+    <th>
+      Medium($7)
+      <button (click)="addPizza('medium')">+1</button>
+      {{calculatePizzaCount('medium')}}
+    </th>
+    <th>
+      Large($8)
+      <button (click)="addPizza('large')">+1</button>
+      {{calculatePizzaCount('large')}}
+    </th>
+    <th>
+      Extra Large($9)
+      <button (click)="addPizza('extraLarge')">+1</button>
+      {{calculatePizzaCount('extraLarge')}}
+    </th>
+  </tr>
+  <tr>
+    <td>Tomatoes($1.00)</td>
+    <td>
+      <input type="checkbox" id="tomatoSmall" (change)="toppingAdded('small', 1, 'veg','tomatoSmall', 'tomato')">
+    </td>
+    <td>
+      <input type="checkbox" id="tomatoMedium" (change)="toppingAdded('medium', 1, 'veg','tomatoMedium', 'tomato')">
+    </td>
+    <td>
+      <input type="checkbox" id="tomatoLarge" (change)="toppingAdded('large', 1, 'veg','tomatoLarge', 'tomato')">
+    </td>
+    <td>
+      <input type="checkbox" id="tomatoExtraLarge" (change)="toppingAdded('extraLarge', 1, 'veg','tomatoExtraLarge', 'tomato')">
+    </td>
+  </tr>
+  <tr>
+    <td>Onions($0.50)</td>
+    <td>
+      <input type="checkbox" id="onionSmall" (change)="toppingAdded('small', 0.5, 'veg','onionSmall', 'onion')">
+    </td>
+    <td>
+      <input type="checkbox" id="onionMedium" (change)="toppingAdded('medium', 0.5, 'veg','onionMedium', 'onion')">
+    </td>
+    <td>
+      <input type="checkbox" id="onionLarge" (change)="toppingAdded('large', 0.5, 'veg','onionLarge', 'onion')">
+    </td>
+    <td>
+      <input type="checkbox" id="onionExtraLarge" (change)="toppingAdded('extraLarge', 0.5, 'veg','onionExtraLarge','onion')">
+    </td>
+  </tr>
+  <tr>
+    <td>Bell Pepper($1.00)</td>
+    <td>
+      <input type="checkbox" id="bellPepperSmall" (change)="toppingAdded('small', 1, 'veg','bellPepperSmall', 'pepper')">
+    </td>
+    <td>
+      <input type="checkbox" id="bellPepperMedium" (change)="toppingAdded('medium', 1, 'veg','bellPepperMedium','pepper')">
+    </td>
+    <td>
+      <input type="checkbox" id="bellPepperLarge" (change)="toppingAdded('large', 1, 'veg','bellPepperLarge','pepper')">
+    </td>
+    <td>
+      <input type="checkbox" id="bellPepperExtraLarge" (change)="toppingAdded('extraLarge', 1, 'veg','bellPepperExtraLarge','pepper')">
+    </td>
+  </tr>
+  <tr>
+    <td>Mushroom($1.20)</td>
+    <td>
+      <input type="checkbox" id="mushroomSmall" (change)="toppingAdded('small', 1.20, 'veg','mushroomSmall','mushroom')">
+    </td>
+    <td>
+      <input type="checkbox" id="mushroomMedium" (change)="toppingAdded('medium', 1.20, 'veg','mushroomMedium','mushroom')">
+    </td>
+    <td>
+      <input type="checkbox" id="mushroomLarge" (change)="toppingAdded('large', 1.20, 'veg','mushroomLarge','mushroom')">
+    </td>
+    <td>
+      <input type="checkbox" id="mushroomExtraLarge" (change)="toppingAdded('extraLarge', 1.20, 'veg','mushroomExtraLarge','mushroom')">
+    </td>
+  </tr>
+  <tr>
+    <td>Pineapple($0.75)</td>
+    <td>
+      <input type="checkbox" id="pineappleSmall" (change)="toppingAdded('small', 0.75, 'veg','pineappleSmall','pineapple')">
+    </td>
+    <td>
+      <input type="checkbox" id="pineappleMedium" (change)="toppingAdded('medium', 0.75, 'veg','pineappleMedium','pineapple')">
+    </td>
+    <td>
+      <input type="checkbox" id="pineappleLarge" (change)="toppingAdded('large', 0.75, 'veg','pineappleLarge','pineapple')">
+    </td>
+    <td>
+      <input type="checkbox" id="pineappleExtraLarge" (change)="toppingAdded('extraLarge', 0.75, 'veg','pineappleExtraLarge','pineapple')">
+    </td>
+  </tr>
+  <tr>
+    <th>NonVeg Toppings</th>
+  </tr>
+  <tr>
+    <td>Sausage($1.00)</td>
+    <td>
+      <input type="checkbox" id="sausageSmall" (change)="toppingAdded('small', 1, 'nonveg','sausageSmall','sausage')">
+    </td>
+    <td>
+      <input type="checkbox" id="sausageMedium" (change)="toppingAdded('medium', 1, 'nonveg','sausageMedium','sausage')">
+    </td>
+    <td>
+      <input type="checkbox" id="sausageLarge" (change)="toppingAdded('large', 1, 'nonveg','sausageLarge','sausage')">
+    </td>
+    <td>
+      <input type="checkbox" id="sausageExtraLarge" (change)="toppingAdded('extraLarge', 1, 'nonveg','sausageExtraLarge','sausage')">
+    </td>
+  </tr>
+  <tr>
+    <td>Pepperoni($2.00)</td>
+    <td>
+      <input type="checkbox" id="pepperoniSmall" (change)="toppingAdded('small', 2, 'nonveg','pepperoniSmall','pepperoni')">
+    </td>
+    <td>
+      <input type="checkbox" id="pepperoniMedium" (change)="toppingAdded('medium', 2, 'nonveg','pepperoniMedium','pepperoni')">
+    </td>
+    <td>
+      <input type="checkbox" id="pepperoniLarge" (change)="toppingAdded('large', 2, 'nonveg','pepperoniLarge','pepperoni')">
+    </td>
+    <td>
+      <input type="checkbox" id="pepperoniExtraLarge" (change)="toppingAdded('extraLarge', 2, 'nonveg','pepperoniExtraLarge','pepperoni')">
+    </td>
+  </tr>
+  <tr>
+    <td>Barbecue Chicken($3.00)</td>
+    <td>
+      <input type="checkbox" id="chickenSmall" (change)="toppingAdded('small', 3, 'nonveg','chickenSmall','chicken')">
+    </td>
+    <td>
+      <input type="checkbox" id="chickenMedium" (change)="toppingAdded('medium', 3, 'nonveg','chickenMedium','chicken')">
+    </td>
+    <td>
+      <input type="checkbox" id="chickenLarge" (change)="toppingAdded('large', 3, 'nonveg','chickenLarge','chicken')">
+    </td>
+    <td>
+      <input type="checkbox" id="chickenExtraLarge" (change)="toppingAdded('extraLarge', 3, 'nonveg','chickenExtraLarge','chicken')">
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>
+      <button (click)="calculateTotalPrice()">Calculate</button>
+    </th>
+    <th>Total amount: ${{this.price}}</th>
+  </tr>
+</table>
