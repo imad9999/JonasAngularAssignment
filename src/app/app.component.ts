@@ -46,6 +46,7 @@ export class AppComponent {
     
 
     const listOfMediumPizzas = this.listOfPizzas.filter(t => String(t.size) === 'medium');
+    console.log(listOfMediumPizzas)
     const totalCostOfMediumPizzas = listOfMediumPizzas.length === 0 
                                     ? 0 
                                     :this.calculateMediumPizzaPrice(listOfMediumPizzas);
@@ -59,7 +60,7 @@ export class AppComponent {
     const totalCostOfExtraLargePizzas = listOfExtraLargePizzas.length === 0 
                                         ? 0
                                         :this.calculatePriceOfPizza(listOfExtraLargePizzas[0]) * listOfExtraLargePizzas.length;
-
+    
     this.price = totalCostOfSmallPizzas + totalCostOfMediumPizzas + totalCostOfLargePizzas + totalCostOfExtraLargePizzas;
   }
 
@@ -77,6 +78,7 @@ export class AppComponent {
     else if(listOfMediumPizzas.length > 2 && listOfMediumPizzas[0].pizzaToppings.length >=4) {
       return 9 + (listOfMediumPizzas.length-2) * this.calculatePriceOfPizza(listOfMediumPizzas[0])
     }
+    return this.calculatePriceOfPizza(listOfMediumPizzas[0]) * listOfMediumPizzas.length;
   }
 
   private calculateLargePizzaPrice(listOfLargePizzas:Pizza[]) {
