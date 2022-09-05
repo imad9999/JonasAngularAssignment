@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-root',
@@ -12,37 +13,85 @@ export class AppComponent {
 
 
   public toppingAdded(pizzaSize, toppingPrice, toppingType, id, toppingName) {
-    const isCheckBoxSelected = (document.getElementById(id) as HTMLInputElement).checked;
-    const pizza = this.listOfPizzas.find(t => t.size === pizzaSize);
-    if (pizza !== undefined) {
+    const isCheckBoxSelected = (document.getElementById(id) as HTMLInputElement).checked;   
+    this.listOfPizzas.forEach(item => {
       if (isCheckBoxSelected) {
-        pizza.pizzaToppings.push({ name: toppingName, price: toppingPrice, type: toppingType })
-      } else {
-        pizza.pizzaToppings = pizza.pizzaToppings.filter(t => t.name !== toppingName)
+        if (item.size === pizzaSize) {
+          item.pizzaToppings = [...item.pizzaToppings, { name: toppingName, type: toppingType, price: toppingPrice }]
+        }
       }
-    }
+      else {
+        item.pizzaToppings = item.pizzaToppings.filter(topping => topping.name !== toppingName)
+      }
+    })
+    this.calculateTotalPrice();
   }
 
   public addPizza(pizzaSize) {
-      this.listOfPizzas.push({ size: pizzaSize, pizzaToppings: [] })
-    }  
+    const pizza = this.listOfPizzas.find(item => item.size === pizzaSize);
+    if (pizza !== undefined) {
+      this.listOfPizzas.push(_.clone(pizza));
+    } else {
+      this.listOfPizzas.push({ size: pizzaSize, pizzaToppings: [], price: Number(PizzaSize[pizzaSize]) })
+    }
+    this.calculateTotalPrice();
+  }
 
   public calculateTotalPrice() {
-    let individualPizzaPrice = [];
-    this.listOfPizzas.map(item => {
-      const sizePrice = PizzaSize[item.size];
-      let toppingsPrice = 0;
-      item.pizzaToppings.map(topping => toppingsPrice += topping.price);
-      let eachPizzaPrice = sizePrice+toppingsPrice;
-      individualPizzaPrice.push(eachPizzaPrice);
-    })
-    let totalPrice = 0;
-     individualPizzaPrice.map(item => totalPrice += item);
-     this.price = totalPrice;
+    const listOfSmallPizzas = this.listOfPizzas.filter(t => String(t.size) === 'small');
+    const pricePerSmallPizza = listOfSmallPizzas.length === 0 
+                               ? 0
+                               : this.calculatePriceOfPizza(listOfSmallPizzas[0]);
+    const totalCostOfSmallPizzas = listOfSmallPizzas.length * pricePerSmallPizza;
+    
+
+    const listOfMediumPizzas = this.listOfPizzas.filter(t => String(t.size) === 'medium');
+    const totalCostOfMediumPizzas = listOfMediumPizzas.length === 0 
+                                    ? 0 
+                                    :this.calculateMediumPizzaPrice(listOfMediumPizzas);
+
+    const listOfLargePizzas = this.listOfPizzas.filter(t => String(t.size) === 'large');
+    const totalCostOfLargePizzas = listOfLargePizzas.length === 0
+                                   ? 0
+                                   : this.calculateLargePizzaPrice(listOfLargePizzas);
+
+    const listOfExtraLargePizzas = this.listOfPizzas.filter(t => String(t.size)==='extraLarge');
+    const totalCostOfExtraLargePizzas = listOfExtraLargePizzas.length === 0 
+                                        ? 0
+                                        :this.calculatePriceOfPizza(listOfExtraLargePizzas[0]) * listOfExtraLargePizzas.length;
+
+    this.price = totalCostOfSmallPizzas + totalCostOfMediumPizzas + totalCostOfLargePizzas + totalCostOfExtraLargePizzas;
   }
 
   public calculatePizzaCount(pizzaSize) {
     return this.listOfPizzas.filter(item => item.size === pizzaSize).length;
+  }
+
+  private calculateMediumPizzaPrice(listOfMediumPizzas:Pizza[]) {
+    if(listOfMediumPizzas.length === 1 && listOfMediumPizzas[0].pizzaToppings.length >=2) {
+      return 5;
+    }
+    else if(listOfMediumPizzas.length ===2 && listOfMediumPizzas[0].pizzaToppings.length >=4) {
+      return 9;
+    }
+    else if(listOfMediumPizzas.length > 2 && listOfMediumPizzas[0].pizzaToppings.length >=4) {
+      return 9 + (listOfMediumPizzas.length-2) * this.calculatePriceOfPizza(listOfMediumPizzas[0])
+    }
+  }
+
+  private calculateLargePizzaPrice(listOfLargePizzas:Pizza[]) {
+     if(listOfLargePizzas.length >= 1 && listOfLargePizzas[0].pizzaToppings.length >= 4) {
+      const discountedPrice = this.calculatePriceOfPizza(listOfLargePizzas[0]) * 0.5;
+      return discountedPrice * listOfLargePizzas.length;
+    }
+    else if(listOfLargePizzas[0].pizzaToppings.length <= 4) {
+      return this.calculatePriceOfPizza(listOfLargePizzas[0]) * listOfLargePizzas.length;
+    }
+
+  }
+
+  private calculatePriceOfPizza(pizza:Pizza) {
+    return pizza.price + pizza.pizzaToppings.reduce((previous,current)=>previous+current.price,0);
   }
 }
 
@@ -56,6 +105,7 @@ export enum PizzaSize {
 export class Pizza {
   size: PizzaSize;
   pizzaToppings: PizzaTopping[];
+  price: number;
 }
 
 export class PizzaTopping {
